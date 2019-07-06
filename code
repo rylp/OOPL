@@ -1,54 +1,86 @@
-//OOP1 CALCULATOR OPERATIONS
+//OOP2 COMPLEX 
 #include<iostream>
 using namespace std;
-void doit();
-class calc
+void input();
+void output();
+void output2();
+void output3();
+void output4();
+class complex
 {
-int a,b,answer;
-char l,h;
 public:
-
-
-void doit()
+float a;
+float b;
+complex(){};
+complex(float a,float b)
 {
-do{
-cout<<"Enter 2 numbers"<<endl;
-cin>>a>>b;
-cout<<"Enter operator"<<endl;
-cin>>h;
-switch(h)
+a=0;
+b=0;
+};
+void input()
 {
-case '+':
-answer=a+b;
-cout<<answer<<endl;
-break;
-case '-':
-answer=a-b;
-cout<<answer<<endl;
-break;
-case '*':
-answer=a*b;
-cout<<answer<<endl;
-break;
-case '/':
-answer=a/b;
-cout<<answer<<endl;
-break;
-//default:
-//cout<<"WRONG INPUT"<<endl;
+cout<<"Enter real part"<<endl;
+cin>>a;
+cout<<"Enter imaginary no."<<endl;
+cin>>b;
 }
-cout<<"Do you want to continue(y/n)?"<<endl;
-cin>>l;
-
+void output()
+{
+cout<<"The addition is "<<a<<"+"<<b<<"i"<<endl;
 }
-while(l=='y');
-
+void output2()
+{
+cout<<"The subtraction is "<<a<<"+"<<b<<"i"<<endl;
+}
+void output3()
+{
+cout<<"The product is "<<a<<"+"<<b<<"i"<<endl;
+}
+void output4()
+{
+cout<<"The division is "<<a<<"+"<<b<<"i"<<endl;
+}
+complex operator+(complex k)
+{
+complex brandnew;
+brandnew.a= a+ k.a;
+brandnew.b= b+ k.b;
+return (brandnew);
+}
+complex operator-(complex l)
+{
+complex brandnew2;
+brandnew2.a= a-l.a;
+brandnew2.b= b-l.b;
+return(brandnew2);
+}
+complex operator*(complex m)
+{
+complex brandnew3;
+brandnew3.a= (a*(m.a))-(b*(m.b));
+brandnew3.b=(a*(m.a))+(b*(m.a));
+return(brandnew3);
+}
+complex operator/ (complex n)
+{
+complex brandnew4;
+brandnew4.a=(a*n.a+(b*n.b))/(n.a*n.a+n.b*n.b);
+brandnew4.b=(b*n.a-(a*n.b))/(n.a*n.a+n.b*n.b);
+return(brandnew4);
 }
 };
-
 int main()
 {
-calc c1;
-c1.doit();
+complex c1,c2,sum,sub,pro,div;
+c1.input();
+c2.input();
+sum=c1+c2;
+sub=c1-c2;
+pro=c1*c2;
+div=c1/c2;
+sum.output();
+sub.output2();
+pro.output3();
+div.output4();
 return 0;
 }
