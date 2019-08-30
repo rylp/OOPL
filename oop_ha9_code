@@ -1,0 +1,31 @@
+#include<iostream>
+using namespace std;
+#include<fstream>
+int main()
+{
+    ofstream outfile;
+    {
+        outfile.open("Myfile.txt",ios::trunc);
+             if(outfile)
+            cout<<"File opened to write into"<<endl;
+        outfile<<"Harry"<<endl;
+        outfile<<25<<endl;
+        outfile<<"CS"<<endl;
+        outfile.close();
+    }
+    ifstream infile;
+    {
+        infile.open("Myfile.txt");
+        if(infile)
+            cout<<"File opened to read from"<<endl;
+        string name;
+        int rno;
+        string branch;
+        infile>>name>>bro;
+        cout<<name<<endl;
+        cout<<rno<<endl;
+        cout<<branch<<endl;
+         infile.close();
+    }
+    return 0;
+}
