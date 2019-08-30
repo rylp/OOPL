@@ -1,5 +1,4 @@
-// oop_STL.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+/*STL USE TO EXCUTE STACK AND QUEUE FOR A Singly Linked List.*/
 //Essential to understand basic definitions of por/push_front/back & size &front.
 //MOST IMP--- How to display list using Iteration and function for it.
 #include<iostream>
