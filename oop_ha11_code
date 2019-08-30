@@ -1,0 +1,65 @@
+//Float values are not being displayed properly
+//Seln sort algo used is diff. Need to be verified for all the test cases
+
+#include <iostream>
+using namespace std;
+template<class T>
+void getarray(T a,int n)
+{
+    for(int i=0;i<n;i++)
+    {
+        cin>>a[i];
+    }
+
+}
+template<class T>
+void selnsort(T a,int n)
+{
+        int i,j,pos,temp;
+           for(i=0;i<n-1;i++)
+    {
+        pos=i;
+        for(j=i+1;j<n;j++)
+        {
+            if(a[pos]>a[j])
+            {
+              pos=j;
+            }
+        }
+       temp=a[i];
+        a[i]=a[pos];
+        a[pos]=temp;
+    }
+}
+template<class T>
+void display(T a,int n)
+{
+        for(int i=0;i<n;i++)
+    {
+        cout<<a[i]<<endl;
+    }
+}
+int main()
+{
+    int is,fs;
+    cout<<"Enter size of float array"<<endl;
+    cin>>fs;
+    float b[fs];
+    cout<<"Enter elements of float array"<<endl;
+    getarray(b,fs);
+    selnsort(b,fs);
+    cout<<"Sorted array"<<endl;
+    display(b,fs);
+
+
+    cout<<"Enter size of integer array"<<endl;
+    cin>>is;
+    int a[is];
+    cout<<"Enter elements of integer array"<<endl;
+    getarray(a,is);
+    selnsort(a,is);
+    cout<<"Sorted array"<<endl;
+    display(a,is);
+
+    return 0;
+}
