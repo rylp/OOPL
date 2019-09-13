@@ -1,0 +1,55 @@
+
+//calculator
+#include<iostream>
+using namespace std;
+void doit();
+class calc
+{
+int a,b,answer;
+char l,h;
+public:
+
+
+void doit()
+{
+do{
+cout<<"Enter 2 numbers"<<endl;
+cin>>a>>b;
+cout<<"Enter operator"<<endl;
+cin>>h;
+switch(h)
+{
+case '+':
+answer=a+b;
+cout<<answer<<endl;
+break;
+case '-':
+answer=a-b;
+cout<<answer<<endl;
+break;
+case '*':
+answer=a*b;
+cout<<answer<<endl;
+break;
+case '/':
+answer=a/b;
+cout<<answer<<endl;
+break;
+//default:
+//cout<<"WRONG INPUT"<<endl;
+}
+cout<<"Do you want to continue(y/n)?"<<endl;
+cin>>l;
+
+}
+while(l=='y');
+
+}
+};
+
+int main()
+{
+calc c1;
+c1.doit();
+return 0;
+}
