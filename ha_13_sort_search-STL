@@ -1,0 +1,127 @@
+//use find and sort functions in algorithm header file
+#include<iostream>
+#include<algorithm>
+#include<string>
+using namespace std;
+class person
+{
+public:
+	string name;
+	string dob;
+	string tele;
+	void getdata();
+	//void showdata() not reqd here.
+};
+void person::getdata()
+{
+	cout<<"Enter name: "<<endl;
+	cin>>name;
+	cout<<"Enter DOB: "<<endl;
+	cin>>dob;
+	cout<<"Enter Phone: "<<endl;
+	cin>>tele;
+}
+class item
+{
+public:
+	string iname;
+	int cost;
+	int code;
+	int quan;
+	void getdata();
+	void showdata();
+
+};
+void item::getdata()
+{
+cout<<"Enter Item Name: "<<endl;
+cin>>iname;
+cout<<"Enter Item code: "<<endl;
+cin>>code;
+cout<<"Enter Item cost: "<<endl;
+cin>>cost;
+cout<<"Enter Item quantity: "<<endl;
+cin>>quan;
+}
+void item::showdata()
+{
+cout<<"Item Name: "<<iname<<endl;
+cout<<"Item Code: "<<code<<endl;
+cout<<"Item Cost: "<<cost<<endl;
+cout<<"Item Quantity: "<<quan<<endl;
+}
+int main()
+{
+int n,m;
+
+cout<<"Enter number of people"<<endl;
+cin>>n;
+
+cout<<"Enter number of items"<<endl;
+cin>>m;
+
+person p[n];
+string z[n];
+
+for(int i=0;i<n;i++)
+{
+p[i].getdata();
+}
+
+for(int i=0;i<n;i++)
+{
+p[i].showdata();
+}
+
+for(int i=0;i<n;i++)
+{
+z[i]=p[i].name;
+}
+
+string a;
+
+cout<<"Enter the name of person to be searched"<<endl;
+cin>>a;
+
+string *ptr;
+
+ptr = find(z,z+n,a);
+
+if(ptr==z+n)
+{
+cout<<"Not found"<<endl;
+}
+else
+{
+cout<<"Element found at "<<ptr-z<<" location"<<endl;
+}
+
+//item
+item it[m];
+int temp[m];
+
+for(int i=0;i<m;i++)
+{
+it[i].getdata();
+}
+
+for(int i=0;i<m;i++)
+{
+temp[i]=it[i].cost;
+}
+
+sort(temp,temp+m);
+
+
+for(int i=0;i<m;i++)
+{
+	for(int j=0;j<m;j++)
+	{
+	if(temp[i]==it[j].cost)
+		{
+		it[j].showdata();
+		}	
+	}
+}
+return 0;
+}
