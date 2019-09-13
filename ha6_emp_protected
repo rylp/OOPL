@@ -1,0 +1,86 @@
+//employee by protected data members
+#include<iostream>
+#include<string.h>
+using namespace std;
+class personal
+{
+protected:
+string name,id;
+int age;
+public:
+personal();
+void getperdata();
+};
+personal::personal()
+{
+name=id="NULL";
+age=0;
+}
+void personal::getperdata()
+{
+cout<<"Enter name and ID"<<endl;
+cin>>name>>id;
+cout<<"AGE"<<endl;
+cin>>age;
+}
+class prof
+{
+protected:
+long int yoe,salary;
+public:
+prof();
+void getprofdata();
+};
+prof::prof()
+{
+yoe=salary=0;
+}
+void prof::getprofdata()
+{
+cout<<"Enter yoe and salary"<<endl;
+cin>>yoe>>salary;
+}
+class acad
+{
+protected:
+float cgpa;
+int passingyear;
+public:
+acad();
+void getacaddata();
+};
+acad::acad()
+{
+cgpa=0.0;
+passingyear=0;
+}
+void acad::getacaddata()
+{
+cout<<"Enter cgpa and passing year"<<endl;
+cin>>cgpa;
+cin>>passingyear;
+}
+class employee:public personal,public prof,public acad
+{
+public:
+void display();
+};
+void employee::display()
+{
+cout<<"Name--"<<name<<endl;
+cout<<"ID--"<<id<<endl;
+cout<<"Age---"<<age<<endl;
+cout<<"Years of experience---"<<yoe<<endl;
+cout<<"Salary-----"<<salary<<endl;
+cout<<"CGPA----"<<cgpa<<endl;
+cout<<"Passing year----"<<passingyear<<endl;
+}
+int main()
+{
+employee e1;
+e1.personal::getperdata();
+e1.prof::getprofdata();
+e1.acad::getacaddata();
+e1.display();
+return 0;
+}
