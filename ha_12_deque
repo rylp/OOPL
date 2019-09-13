@@ -1,0 +1,76 @@
+//DEQUEUE using STL
+#include<iostream>
+#include<iterator>
+#include<deque>
+using namespace std;
+/*void end(deque <int> d)
+{
+int i;
+for(i=0;i<d.size();i++);
+cout<<d[i];
+}*/
+void display(deque <int> d)
+{
+for(int i=0;i<d.size();i++)
+{
+cout<<d[i]<<endl;
+}
+}
+int main()
+{
+int choose,n,ele,el;
+deque <int> d;
+do
+{
+	cout<<"DEqueue"<<endl;
+	cout<<"1.Insert at front 2.Insert at back 3.Delete at front 4.Delete at back 5.Starting element 6.Ending element 7.Display 8.Empty"<<endl;
+	cin>>choose;
+	switch(choose)
+	{
+		case 1:
+		cout<<"Enter element to be inserted"<<endl;
+		cin>>ele;
+		d.push_front(ele);
+		display(d);
+		break;
+		
+		case 2:
+		cout<<"Enter element to be inserted"<<endl;
+		cin>>el;
+		d.push_back(el);
+		display(d);
+		break;
+
+		case 3:
+		d.pop_front();
+		display(d);
+		break;
+
+		case 4:
+		d.pop_back();
+		display(d);
+		break;
+
+		case 5:
+		cout<<"Starting element is "<<d.front()<<endl;
+		break;
+		
+		/*case 6:
+		cout<<"Ending element is "<<end(d)<<endl;
+		break;*/
+
+		case 7:
+		display(d);
+		break;
+		
+		case 8:
+		d.empty();
+		break;
+	}
+cout<<"Enter 0 to end"<<endl;
+cin>>n;
+}while(n!=0);
+
+cout<<"END"<<endl;
+return 0;
+}
