@@ -13,7 +13,10 @@
 //or have + , * not as friend but done in class itself.
 
 //friend ostream &operator(ostream &out,complex &c)
-//Pass everytime by reference only.
+//Pass everytime by reference only for istream and ostream
+
+//friend complex operator + (complex c1,complex c2)
+//no need of reference. just pass both the objects
 
 #include <iostream>
 using namespace std;
@@ -34,8 +37,8 @@ public:
 	}
 	friend ostream & operator << (ostream& out, complex& c);
 	friend istream & operator >> (istream& in, complex& c);
-	friend complex operator+(complex &c1, complex &c2);
-	friend complex operator *(complex &c1, complex &c2);
+	friend complex operator+(complex c1, complex c2);
+	friend complex operator *(complex c1, complex c2);
 
 	/*complex operator + (complex c)
 	{
@@ -51,38 +54,32 @@ public:
 		temp.img = (real * c.img + img * c.real);
 		return temp;
 	}*/
-  
 };
-
-complex operator+(complex &c1, complex &c2)
+complex operator+(complex c1, complex c2)
 {
 	complex temp;
 	temp.real = c1.real + c2.real;
 	temp.img = c1.img + c2.img;
 	return temp;
 }
-
-complex operator *(complex &c1, complex &c2)
+complex operator *(complex c1, complex c2)
 {
 	complex temp;
 	temp.real = (c1.real * c2.real - c1.img * c2.img);//(ac-bd)
 	temp.img = (c1.real * c2.img + c2.real * c1.img);//(ad+bc)
 	return temp;
 }
-
 ostream & operator <<(ostream& out, complex& c)//see this
 {
 	cout << "Complex number is " << endl;
 	out << c.real << " + " << c.img << "i "<<endl;
 	return out;
 }
-
 istream& operator >>(istream& in, complex& c)//see this
 {
 	in >> c.real >> c.img;
 	return in;
 }
-
 int main()
 {
 	complex c1,c2;
@@ -107,4 +104,3 @@ int main()
 
 	return 0;
 }
-
