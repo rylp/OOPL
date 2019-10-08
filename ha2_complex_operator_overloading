@@ -1,86 +1,110 @@
-//OOP2 COMPLEX 
-#include<iostream>
+// 2.complex.oop.cpp : This file contains the 'main' function. Program execution begins and ends there.
+//
+
+//Implement a class Complex which represents the Complex Number data type
+//Implement the following operations : 1. Constructor(including a default constructor which creates the complex number 0 + 0i).
+//2. Overloaded operator+ to add two complex numbers. 
+//3. Overloaded operator* to multiply two complex numbers. 
+//4. Overloaded << and >> to print and read complex Numbers
+
+//imp to have 2 constructors
+//2 ways
+//create all as friend functions and overload operators accordingly
+//or have + , * not as friend but done in class itself.
+
+//friend ostream &operator(ostream &out,complex &c)
+//Pass everytime by reference only.
+
+#include <iostream>
 using namespace std;
-void input();
-void output();
-void output2();
-void output3();
-void output4();
 class complex
 {
+	float real;
+	float img;
 public:
-float a;
-float b;
-complex(){};
-complex(float a,float b)
-{
-a=0;
-b=0;
+	complex()
+	{
+		real = 0;
+		img = 0;
+	}
+	complex(int r, int i)
+	{
+		real = r;
+		img = i;
+	}
+	friend ostream & operator << (ostream& out, complex& c);
+	friend istream & operator >> (istream& in, complex& c);
+	friend complex operator+(complex &c1, complex &c2);
+	friend complex operator *(complex &c1, complex &c2);
+
+	/*complex operator + (complex c)
+	{
+		complex temp;
+		temp.real = real + c.real;
+		temp.img = img + c.img;
+		return temp;
+	}
+	complex operator * (complex c)
+	{
+		complex temp;
+		temp.real = (real * c.real - img * c.img);
+		temp.img = (real * c.img + img * c.real);
+		return temp;
+	}*/
+  
 };
-void input()
+
+complex operator+(complex &c1, complex &c2)
 {
-cout<<"Enter real part"<<endl;
-cin>>a;
-cout<<"Enter imaginary no."<<endl;
-cin>>b;
+	complex temp;
+	temp.real = c1.real + c2.real;
+	temp.img = c1.img + c2.img;
+	return temp;
 }
-void output()
+
+complex operator *(complex &c1, complex &c2)
 {
-cout<<"The addition is "<<a<<"+"<<b<<"i"<<endl;
+	complex temp;
+	temp.real = (c1.real * c2.real - c1.img * c2.img);//(ac-bd)
+	temp.img = (c1.real * c2.img + c2.real * c1.img);//(ad+bc)
+	return temp;
 }
-void output2()
+
+ostream & operator <<(ostream& out, complex& c)//see this
 {
-cout<<"The subtraction is "<<a<<"+"<<b<<"i"<<endl;
+	cout << "Complex number is " << endl;
+	out << c.real << " + " << c.img << "i "<<endl;
+	return out;
 }
-void output3()
+
+istream& operator >>(istream& in, complex& c)//see this
 {
-cout<<"The product is "<<a<<"+"<<b<<"i"<<endl;
+	in >> c.real >> c.img;
+	return in;
 }
-void output4()
-{
-cout<<"The division is "<<a<<"+"<<b<<"i"<<endl;
-}
-complex operator+(complex k)
-{
-complex brandnew;
-brandnew.a= a+ k.a;
-brandnew.b= b+ k.b;
-return (brandnew);
-}
-complex operator-(complex l)
-{
-complex brandnew2;
-brandnew2.a= a-l.a;
-brandnew2.b= b-l.b;
-return(brandnew2);
-}
-complex operator*(complex m)
-{
-complex brandnew3;
-brandnew3.a= (a*(m.a))-(b*(m.b));
-brandnew3.b=(a*(m.a))+(b*(m.a));
-return(brandnew3);
-}
-complex operator/ (complex n)
-{
-complex brandnew4;
-brandnew4.a=(a*n.a+(b*n.b))/(n.a*n.a+n.b*n.b);
-brandnew4.b=(b*n.a-(a*n.b))/(n.a*n.a+n.b*n.b);
-return(brandnew4);
-}
-};
+
 int main()
 {
-complex c1,c2,sum,sub,pro,div;
-c1.input();
-c2.input();
-sum=c1+c2;
-sub=c1-c2;
-pro=c1*c2;
-div=c1/c2;
-sum.output();
-sub.output2();
-pro.output3();
-div.output4();
-return 0;
+	complex c1,c2;
+
+	cout << "Enter the real and imaginary part of 1st complex number" << endl;
+	cin >> c1;
+	cout << c1;
+
+	cout << "Enter the real and imaginary part of 2nd complex number" << endl;
+	cin >> c2;
+	cout << c2;
+	
+	cout << "Addition" << endl;
+	complex c3;
+	c3= c1 + c2;
+	cout << c3;
+
+	cout << "Multiplication" << endl;
+	complex c4;
+	c4= c1 * c2;
+	cout << c4;
+
+	return 0;
 }
+
