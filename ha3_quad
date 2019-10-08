@@ -1,83 +1,132 @@
-#include<iostream>
+// 3.quad.oop.cpp : This file contains the 'main' function. Program execution begins and ends there.
+//
+
+/*Implement a class Quadratic that represents degree two polynomials
+i.e., polynomials of type ax2 + bx + c.
+The class will require three data members corresponding to a, b and c
+Implement the following operations :
+A constructor(including a default constructor which creates the 0 polynomial)
+Overloaded operator+ to add two polynomials of degree 2.
+Overloaded << and >> to print and read polynomials
+To do this, you will need to decide what you want your input and output format to look like
+A function eval that computes the value of a polynomial for a given value of x
+A function that computes the two solutions of the equation ax2 + bx + c = 0*/
+
+//include math.h header file for determinant
+//create floats a,b,c private and use 2 constructors
+//have  a istream and ostream friend function
+//have a quad operator friend function for adding
+//have function: float eval(float val)
+//int that just calc a(val*val) + b(val) + c and return it
+//have fn: void roots();
+//in it: first calc det= b2 - 4ac
+//on basis of that have 3 condn:- 1.Imaginary 2.Unique 3.Real Distinct and use sqrt(det) only in 3 rd case.
+
+
+//friend ostream &operator(ostream &out,quad &q);
+//quad operator+(quad q1,quad q2);
+
+#include <iostream>
 #include<math.h>
 using namespace std;
-class poly
+class quad
 {
-int a,b,c;
+	float a, b, c;
 public:
+	quad()
+	{
+		a = 0;
+		b = 0;
+		c = 0;
+	}
+	quad(int l, int m, int n)
+	{
+		a = l;
+		b = m;
+		c = n;
+	}
+	friend ostream& operator<<(ostream& out, quad& q);
+	friend istream& operator>>(istream& in, quad& q);
+	friend quad operator+(quad q1, quad q2);
+	float eval(float val);
+	void roots();
+};
 
-poly()
+void quad::roots()
 {
-a=0;
-b=0;
-c=0;
-};
-poly(int x, int y , int z)
-{
-a=x;
-b=y;
-c=z;
-};
-poly operator + (poly aso)
-{
-poly bn;
-bn.a=a+aso.a;
-bn.b=b+aso.b;
-bn.c=c+aso.c;
-return(bn);
+	float det = (b * b) - (4.0 * a * c);
+
+	if (det < 0)
+		cout << "Imaginary Roots" << endl;
+
+	else if (det == 0)
+	{
+		cout << "Unique solution " << endl;
+		float x = -b / (2.0 * a);
+		cout << " x=" << x << endl;
+	}
+
+	else
+	{
+		cout << "Real solutions" << endl;
+		float x1 = (-b + sqrt(det)) / (2.0 * a);
+		float x2 = (-b - sqrt(det)) / (2.0 * a);
+		cout << "x1= " << x1 << " and x2=" << x2 << endl;
+	}
 }
-void eval(int k)
+
+float quad::eval(float val)
 {
-int p,value;
-p=k;
-value= (a*p*p)+(b*p)+c;
-cout<<"Value is "<<value<<endl;
+	float result;
+	result = (a * val * val) + (b * val) + (c);
+	return result;
 }
-void solve()
+
+quad operator+(quad q1, quad q2)
 {
-int just,det;
-just=(b*b)-(4*a*c);
-det=sqrt(just);
-int ans1,ans2;
-if(det>=0)
+	quad temp;
+	temp.a = q1.a + q2.a;
+	temp.b = q1.b + q2.b;
+	temp.c = q1.c + q2.c;
+	return temp;
+}
+
+ostream & operator<<(ostream& out, quad& q)
 {
-ans1= (-b + det )/(2*a);
-ans2= (-b - det )/(2*a);
-cout<<"The roots are"<<ans1<<"& "<<ans2<<endl;
+	out <<"("<< q.a << "x^2) + (" << q.b << "x) + (" << q.c <<")"<< endl;
+	return out;
 }
-else
+
+istream & operator>>(istream & in, quad& q)
 {
-cout<<"Imaginary roots"<<endl;
+	in >> q.a >> q.b >> q.c;
+	return in;
 }
-}
-friend ostream &operator<<(ostream &out,poly &temp);
-friend istream &operator>>(istream &in,poly &soln);
-};
-ostream &operator<<(ostream &out,poly &temp)
-{
-out<<temp.a<<"x^2 +"<<temp.b<<"x +"<<temp.c;
-return(out);
-}
-istream &operator>>(istream &in, poly &soln)
-{
-in>>soln.a>>soln.b>>soln.c;
-return(in);
-}
+
 int main()
 {
-int n,n1;
-poly p1,p2;
-cout<<"Enter"<<endl;
-cin>>p1;
-cout<<"Enter"<<endl;
-cin>>p2;
-cout<<p1<<endl;
-cout<<p2<<endl;
-poly p3=p1+p2;
-cout<<p3<<endl;
-cout<<"Enter value for 1st poly"<<endl;
-cin>>n;
-p1.eval(n);
-p1.solve();
-return 0;
+	float val;
+	quad q1,q2;
+	cout << "Enter polynomial 1 in ax2 + bx + c format" << endl;
+	cin >> q1;
+	cout << q1;
+
+	cout << "Evaluate at a value" << endl;
+	cout << "Enter value" << endl;
+	cin >> val;
+	float result=q1.eval(val);
+	cout << "Evaluation is " << result << endl;
+
+	cout << "Roots of equation" << endl;
+	q1.roots();
+
+	cout << "Enter polynomial 2 in ax2 + bx + c format" << endl;
+	cin >> q2;
+	cout << q2;
+	
+	cout << "Addition" << endl;
+	quad q3 = q1 + q2;
+	cout << q3;
+
+	return 0;
 }
