@@ -1,68 +1,79 @@
-/*SELECTION SORT USING TEMPLATE DEFINITION FOR INT AND FLOAT ARRAY*/
-//TEMP VARIABLE ISSUE TO BE SEEN IN selnsort fn.
+// template_seln_sort.cpp : This file contains the 'main' function. Program execution begins and ends there.
+//
+//create 3 template<class T>
+//1.getdata() 2.ssort() 3.display()
+//look at main once
+//seln sort function is essential.
+//see it once.
+
 #include <iostream>
 using namespace std;
+
 template<class T>
-void getarray(T a,int n)
+void getarray(T a[100], int n)
 {
-    for(int i=0;i<n;i++)
-    {
-        cin>>a[i];
-    }
+	for (int i = 0; i < n; i++)
+	{
+		cin >> a[i];
+	}
+}
+
+template<class T>
+void ssort(T a[100], int n)
+{
+	int i, j, pos;
+
+	for (i = 0; i < n - 1; i++)
+	{
+		pos = i;
+		for (j = i + 1; j < n; j++)
+		{
+			if (a[pos] > a[j])
+				pos = j;
+		}
+		swap(a[i], a[pos]);
+	}
 
 }
-template<class T>
-void selnsort(T a,int n)
-{
-    //TAKING TEMP AND SWAPPING CANT BE DONE FOR REASONS I DONT KNOW (YET)
-    //T temp;
-        int i,j,pos;
 
-           for(i=0;i<n-1;i++)
-    {
-        pos=i;
-        for(j=i+1;j<n;j++)
-        {
-            if(a[pos]>a[j])
-            {
-              pos=j;
-            }
-        }
-      //  temp=a[i];
-        //a[i]=a[pos];
-        //a[pos]=temp;
-        swap(a[pos],a[i]);
-    }
-}
 template<class T>
-void display(T a,int n)
+void display(T a[100], int n)
 {
-        for(int i=0;i<n;i++)
-    {
-        cout<<a[i]<<endl;
-    }
+	for (int i = 0; i < n; i++)
+	{
+		cout << a[i] << " ";
+	}
+	cout << endl;
 }
 int main()
 {
-    int is,fs;
-    cout<<"Enter size of float array"<<endl;
-    cin>>fs;
-    float b[fs];
-    cout<<"Enter elements of float array"<<endl;
-    getarray(b,fs);
-    selnsort(b,fs);
-    cout<<"Sorted array"<<endl;
-    display(b,fs);
+	cout << "Integer array" << endl;
+	int a[20];
+	int is;
+	cout << "Enter size" << endl;
+	cin >> is;
+	cout << "Enter array elements" << endl;
+	getarray(a, is);
+	cout << "Before sorting" << endl;
+	display(a, is);
+	cout << "Now applying selection sort..." << endl;
+	ssort(a, is);
+	cout << "Sorted array is " << endl;
+	display(a, is);
 
+	cout << "Float array" << endl;
+	float b[20];
+	int fs;
+	cout << "Enter size" << endl;
+	cin >> fs;
+	cout << "Enter array elements" << endl;
+	getarray(b, fs);
+	cout << "Before sorting" << endl;
+	display(b, fs);
+	cout << "Now applying selection sort..." << endl;
+	ssort(b, fs);
+	cout << "Sorted array is " << endl;
+	display(b, fs);
 
-    cout<<"Enter size of integer array"<<endl;
-    cin>>is;
-    int a[is];
-    cout<<"Enter elements of integer array"<<endl;
-    getarray(a,is);
-    selnsort(a,is);
-    cout<<"Sorted array"<<endl;
-    display(a,is);
-
-    return 0;
+	return 0;
 }
