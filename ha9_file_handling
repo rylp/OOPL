@@ -1,32 +1,88 @@
-/*File handling, Basic write and read operations*/
-#include<iostream>
-using namespace std;
+
+//Type 1.Used class and did the things
+
+#include <iostream>
 #include<fstream>
+using namespace std;
+
+class student
+{
+	int rno;
+	char name[20];
+public:
+	void getdata();
+	void putdata();
+};
+void student::getdata()
+{
+	cout << "Enter rno" << endl;
+	cin >> rno;
+	cout << "Enter name" << endl;
+	cin >> name;
+}
+void student::putdata()
+{
+	cout << "Rno " << rno<<endl;
+	cout << "Name " << name<<endl;
+}
 int main()
 {
-    ofstream outfile;
-    {
-        outfile.open("Myfile.txt",ios::trunc);
-             if(outfile)
-            cout<<"File opened to write into"<<endl;
-        outfile<<"Harry"<<endl;
-        outfile<<25<<endl;
-        outfile<<"CS"<<endl;
-        outfile.close();
-    }
-    ifstream infile;
-    {
-        infile.open("Myfile.txt");
-        if(infile)
-            cout<<"File opened to read from"<<endl;
-        string name;
-        int rno;
-        string branch;
-        infile>>name>>bro;
-        cout<<name<<endl;
-        cout<<rno<<endl;
-        cout<<branch<<endl;
-         infile.close();
-    }
-    return 0;
+	student s;
+
+	fstream file;
+	file.open("rylp.txt", ios::out | ios::trunc);
+	{
+		cout << "---Writting into file---" << endl;
+		s.getdata();
+		file.write((char*)& s, sizeof(s));
+	}
+	file.close();
+
+	file.seekg(0);
+
+	file.open("rylp.txt", ios::in | ios::out);
+	{
+		cout << "---Reading from file---" << endl;
+		file.read((char*) &s, sizeof(s));
+		s.putdata();
+	}
+	file.close();
+
+	return 0;
+}
+
+//Type 2: Did everything in main()
+
+#include <iostream>
+#include<fstream>
+using namespace std;
+int main()
+{
+	int rno;
+	char name[20];
+
+	fstream file;
+	{
+		file.open("rylp.txt", ios::out | ios::trunc );
+		cout << "Enter rollno " << endl;
+		cin >> rno;
+		file << rno;
+		cout << "Enter name " << endl;
+		cin >> name;
+		file << name;
+	}
+	file.close();
+
+	file.seekg(0);
+
+	file.open("rylp.txt", ios::in);
+	{
+		file >> rno;
+		file >> name;
+		cout << rno<<endl;
+		cout << name<<endl;
+	}
+	file.close();
+
+	return 0;
 }
