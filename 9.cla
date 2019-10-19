@@ -1,0 +1,66 @@
+#include<iostream>
+#include<fstream>
+#include<cstdlib>
+#include<cstring>
+using namespace std;
+int main(int argc,char *argv[])
+{
+    string rep="";
+
+    if(argc!=4)
+    {
+        cerr<<"Insufficient arguements"<<endl;
+        exit(1);
+    }
+
+    ifstream infile;
+    infile.open(argv[1]);
+
+    if(!infile)
+    {
+        cerr<<"Cant open file"<<endl;
+        exit(1);
+    }
+
+    string line;
+    string a2=argv[2];
+    string a3=argv[3];
+    unsigned int found;
+
+    while(infile)
+    {
+        getline(infile,line);
+        found=line.find(a2);
+
+        while(line.find(a2)<500)
+        {
+            line.replace(found,a2.size(),a3);
+            found=line.find(a2);
+        }
+        if(infile.eof())
+            break;
+
+        rep=rep+line+"\n";
+
+    }
+    infile.close();
+
+    string a=rep;
+
+    ofstream outfile;
+    outfile.open(argv[1]);
+    outfile<<a;
+    cout<<"Replaced data"<<endl;
+    outfile.close();
+
+    infile.open(argv[1]);
+
+    while(infile)
+    {
+        getline(infile,a);
+        cout<<a;
+        if(infile.eof())
+            break;
+    }
+    return 0;
+}
