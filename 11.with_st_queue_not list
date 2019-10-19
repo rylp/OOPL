@@ -1,0 +1,279 @@
+#include <iostream>
+#include<stack>
+#include<queue>
+#include<iterator>
+using namespace std;
+void display(stack <int> s)
+{
+        while(!s.empty())
+        {
+            cout<<s.top()<<endl;
+            s.pop();
+        }
+}
+void disp(queue <int> q)
+{
+    while(!q.empty())
+    {
+        cout<<q.front()<<endl;
+        q.pop();
+    }
+}
+
+int main()
+{
+    stack <int> s;
+    queue <int> q;
+    typedef int select;
+    typedef int element;
+    element e1,e2;
+    select s1,s2,s3,s4;
+    do
+    {
+        cout<<"Enter 1.Stack 2.Queue"<<endl;
+        cin>>s1;
+
+        switch(s1)
+        {
+            case 1:cout<<"\n\tStack"<<endl;
+                    cout<<"\n\tEnter your choice"<<endl;
+                    cout<<"\n\t1.Insert"<<endl;
+                    cout<<"\n\t2.Delete"<<endl;
+                    cout<<"\n\t3.Display"<<endl;
+                    cout<<"\n\t4.Front"<<endl;
+                    cout<<"\n\t5.Size"<<endl;
+                    cout<<"\n\t6.Exit"<<endl;
+                    cin>>s2;
+
+                    switch(s2)
+                    {
+                        case 1:cout<<"Enter element to insert"<<endl;
+                                cin>>e1;
+                                s.push(e1);
+                                cout<<"---Pushed---"<<endl;
+                                break;
+
+                        case 2:s.pop();
+                                cout<<"---Popped---"<<endl;
+                                break;
+
+                        case 3:cout<<"Displaying..."<<endl;
+                                display(s);
+                                break;
+
+                        case 4:cout<<"Top of stack is: "<<s.top()<<endl;
+                                break;
+
+                        case 5:cout<<"Size : "<<s.size()<<endl;
+                                break;
+
+                        case 6:cout<<"Thank You"<<endl;
+                                break;
+
+                        default:cout<<"Invalid Selection"<<endl;
+
+                    }
+
+                    break;
+
+            case 2:cout<<"Queue"<<endl;
+                    cout<<"\n\tEnter your choice"<<endl;
+                    cout<<"\n\t1.Insert"<<endl;
+                    cout<<"\n\t2.Delete"<<endl;
+                    cout<<"\n\t3.Display"<<endl;
+                    cout<<"\n\t4.Front"<<endl;
+                    cout<<"\n\t5.Back"<<endl;
+                    cout<<"\n\t6.Size"<<endl;
+                    cout<<"\n\t7.Exit"<<endl;
+                    cin>>s3;
+
+                    switch(s3)
+                    {
+                        case 1:cout<<"Enter Insert element"<<endl;
+                                cin>>e2;
+                                q.push(e2);
+                                break;
+
+                        case 2:cout<<"Delete last element"<<endl;
+                                q.pop();
+                                break;
+
+                        case 3:cout<<"Display"<<endl;
+                                disp(q);
+                                break;
+
+                        case 4:cout<<"Front : "<<q.front()<<endl;
+                                break;
+
+                        case 5:cout<<"Back is : "<<q.back()<<endl;
+                                break;
+
+                        case 6:cout<<"Size : "<<q.size()<<endl;
+                                break;
+
+                        case 7:cout<<"Thank you "<<endl;
+                                break;
+
+
+                        default:cout<<"Invalid selection"<<endl;
+                    }
+
+                    break;
+        }
+
+
+
+
+
+
+        cout<<"Enter 0 to exit"<<endl;
+        cin>>s4;
+
+    }while(s4!=0);
+
+
+    return 0;
+}
+
+/*
+#include<iostream>
+#include<iterator>  //It is working without this header file also but, better to keep it in code.
+#include<list>
+using namespace std;
+void showlist(list <int> disp)
+{
+	list <int> ::iterator i;
+	for (i = disp.begin(); i != disp.end(); ++i)
+		cout << *i << endl;
+}
+int main()
+{
+	int select = 0;//Initialising this select here is essential
+	typedef int element;//Create typedef to make things easier.
+	element e1, e2, e3;
+	list <int> l1;//Defn for creation of a list which will behave like a stack.
+	list <int> l2;//Defn for creation of a list which will behave like a queue.
+	do
+	{
+		int opt;
+		cout << "Enter 1.Stack 2.Queue" << endl;
+		cin >> opt;
+		switch (opt)
+		{
+		case 1:
+			cout << "Stack" << endl;
+			int choose;
+			cout << "Enter your choice: 1.Insert 2.Delete 3.Top 4.DisplayList 5.Count 6.Empty" << endl;
+			cin >> choose;
+			switch (choose)
+			{
+			case 1:
+			{
+				cout << "Enter element to be added" << endl;
+				cin >> e1;
+				l1.push_front(e1);
+				break;
+			}
+			case 2:
+			{
+				cout << "Last entered element gets deleted" << endl;
+				l1.pop_front();
+				break;
+			}
+			case 3:
+			{
+				int fr = l1.front();
+				cout << fr << endl;
+				break;
+			}
+			case 4:
+			{
+				cout << "Display List" << endl;
+				showlist(l1);
+				break;
+			}
+			case 5:
+			{
+				int s = l1.size();
+				cout << "Size is " << s << endl;
+				break;
+			}
+			case 6:
+			{
+				if (l1.empty())
+					cout << "List is empty" << endl;
+				else
+					cout << "List is not empty" << endl;
+			}
+			}
+			break;
+
+		case 2:
+			cout << "Queue" << endl;
+			int choice;
+			cout << "Enter your choice: 1.Insert front 2.Insert end 3.Delete start 4.Delete end 5.Count 6.DislayList 7.Top 8.Empty" << endl;
+			cin >> choice;
+			switch (choice)
+			{
+			case 1:
+			{
+				cout << "Enter element to be added" << endl;
+				cin >> e2;
+				l2.push_front(e2);
+				break;
+			}
+			case 2:
+			{
+				cout << "Enter element to be added" << endl;
+				cin >> e3;
+				l2.push_back(e3);
+				break;
+			}
+			case 3:
+			{
+				cout << "Element at the start gets deleted" << endl;
+				l2.pop_front();
+				break;
+			}
+			case 4:
+			{
+				cout << "Element at the end gets deleted" << endl;
+				l2.pop_back();
+				break;
+			}
+			case 5:
+			{
+				int s = l2.size();
+				cout << "Total numbers of elements currently are " << s << endl;
+				break;
+			}
+			case 6:
+			{
+				cout << "Display list" << endl;
+				showlist(l2);
+				break;
+			}
+			case 7:
+			{
+				cout << "Top" << endl;
+				int front = l2.front();
+				cout << "Current start is " << front << endl;
+				break;
+			}
+			case 8:
+			{
+				if (l2.empty())
+					cout << "List is empty" << endl;
+				else
+					cout << "List is not empty" << endl;
+			}
+			}
+
+		}
+		cout << "Do you want to continue ? Press 1 to continue" << endl;
+		cin >> select;
+
+	} while (select == 1);
+	return 0;
+}
+*/
