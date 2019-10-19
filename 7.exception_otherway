@@ -1,0 +1,98 @@
+#include <iostream>
+using namespace std;
+class user
+{
+    int age;
+    long int salary;
+    string location;
+    bool vehicle;
+public:
+    user()
+    {
+        age=salary=0;
+        location="";
+    }
+    user(int a)
+    {
+        cout<<"Invalid age"<<endl;
+    }
+    user(long int s)
+    {
+        cout<<"Invalid salary"<<endl;
+    }
+    user(string l)
+    {
+        cout<<"Invalid location"<<endl;
+    }
+    use(bool v)
+    {
+        cout<<"Invalid vehicle"<<endl;
+    }
+    void getdata();
+    void putdata();
+    void except();
+};
+void user::getdata()
+{
+    cout<<"Enter Age : "<<endl;
+    cin>>age;
+    cout<<"Enter salary : "<<endl;
+    cin>>salary;
+    cout<<"Enter Location : "<<endl;
+    cin>>location;
+    cout<<"Enter 1.4-Wheeler 0.ALL others: "<<endl;
+    cin>>vehicle;
+}
+void user::except()
+{
+    int count=0;
+    if(age<18 || age>50)
+    {
+        throw user(age);
+        count++;
+    }
+
+    if(salary < 50000 || salary > 100000)
+    {
+        count++;
+        throw user(salary);
+    }
+
+
+    if(location!="Pune" && location != "Mumbai" && location != "Bangalore" && location != "Chennai")
+    {
+        count++;
+        throw user(location);
+    }
+
+    if(vehicle!=1)
+    {
+        count++;
+        throw user(vehicle);
+    }
+
+    if(count==0)
+        putdata();
+}
+void user::putdata()
+{
+    cout<<"Age: "<<age<<endl;
+    cout<<"Salary: "<<salary<<endl;
+    cout<<"Location: "<<location<<endl;
+    cout<<"Vehicle:4-wheeler"<<endl;
+}
+
+int main()
+{
+    user u;
+    u.getdata();
+    try
+    {
+        u.except();
+    }
+    catch(...)
+    {
+        cout<<"Invalid data"<<endl;
+    }
+    return 0;
+}
