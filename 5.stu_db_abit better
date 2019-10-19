@@ -1,0 +1,127 @@
+#include<iostream>
+using namespace std;
+class exam
+{
+  int rno;
+  string cls;
+  int div;
+
+  public:
+  exam()
+  {
+      rno=div=0;
+      cls="";
+  }
+  exam(int rno,string cls,int div)
+  {
+     this->div=div;
+     this->cls=cls;
+     this->rno=rno;
+  }
+  friend class student;
+   ~exam()
+   {
+        cout<<"Exam class destructor called"<<endl;
+   }
+};
+class student
+{
+    string name;
+    string bg;
+    string addr;
+    long long mob;
+    static int count;
+    exam *e;
+    public:
+     student()
+     {
+        name=bg=addr="";
+        mob=0;
+     }
+     student(student &s)
+     {
+         count++;
+         name=s.name;
+         bg=s.bg;
+         addr=s.addr;
+         mob=s.mob;
+         e=new exam;
+         e->rno=s.e->rno;
+         e->cls=s.e->cls;
+         e->div=s.e->div;
+     }
+     void getdata();
+     void display();
+     inline void accept_e(int roll,string c,int division)
+     {
+           e=new exam(roll,c,division);
+     }
+     static int counting()
+     {
+         return count;
+     }
+     ~student()
+     {
+         cout<<"Student Destructor Called"<<endl;
+         delete e;
+     }
+};
+void student::getdata()
+{
+         int roll,division;
+         string c;
+         cout<<"Enter details of student "<<++count<<endl;
+         cout<<"Enter name :"<<endl;
+         cin>>name;
+         cout<<"Enter blood group"<<endl;
+         cin>>bg;
+         cout<<"Enter contact address"<<endl;
+         cin>>addr;
+         cout<<"Enter telephone number"<<endl;
+         cin>>mob;
+         cout<<"Enter Roll No :"<<endl;
+         cin>>roll;
+         cout<<"Enter Class :"<<endl;
+         cin>>c;
+         cout<<"Enter Division :"<<endl;
+         cin>>division;
+         accept_e(roll,c,division);
+}
+void student::display()
+{
+         cout<<"----Student-----"<<endl;
+         cout<<"\n\tName :"<<name<<endl;
+         cout<<"\n\tBlood Group :"<<bg<<endl;
+         cout<<"\n\tContact Address :"<<addr<<endl;
+         cout<<"\n\tTelephone Number :"<<mob<<endl;
+         cout<<"\n\tRoll No :"<<e->rno<<endl;
+         cout<<"\n\tClass :"<<e->cls<<endl;
+         cout<<"\n\tDivision :"<<e->div<<endl;
+         cout<<endl;
+}
+int student::count;
+
+int main()
+{
+    int n;
+    cout<<"Enter number of students"<<endl;
+    cin>>n;
+    student *s=new student[n];
+    for(int i=0;i<n;i++)
+    {
+         s[i].getdata();
+         int x=student::counting();
+         cout<<"Total number of students in database "<<x<<endl;
+    }
+
+    for(int i=0;i<n;i++)
+    {
+        s[i].display();
+    }
+
+    student s2(s[0]);
+    int y=student::counting();
+    cout<<"Total number of students in database "<<y<<endl;
+    s2.display();
+    return 0;
+}
