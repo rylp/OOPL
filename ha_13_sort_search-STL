@@ -1,122 +1,168 @@
-//use find and sort functions in algorithm header file
+//I SEARCHED n SORTED BY NAME for PERSON
+//I SEARCH n SORTED BY COST for ITEM
+
+//SEARCHING:
+//store it an array like int cost[m]/string z[n]
+//Then enter string/int b as the name/cost to search
+//in string *ptr/int *ptr2 do find(z,z+n,a)/find(cost,cost+m,b)
+//then if-else statements: ptr==z+n/ptr2=cost+m----Not found
+//else--- found at ptr-z/ptr2-cost position
+
+//Sorting
+//create 2 standalone functions outside like
+//1 for comparing name and other for comparing cost
+//bool comp_name(person p,person q)
+//{
+//  return(p.getname()<q.getname());
+//}
+//and then say sort(s,s+n,comp_name);
+
+
+
 #include<iostream>
 #include<algorithm>
-#include<string>
 using namespace std;
 class person
 {
-public:
-	string name;
+    string name;
 	string dob;
-	string tele;
-	void getdata();
-	//void showdata() not reqd here.
+	long int num;
+public:
+	void getdata()
+	{
+		cout<<"\nEnter Name:";
+		cin>>name;
+		cout<<"\nEnter date of birth";
+		cin>>dob;
+		cout<<"\nEnter telephone number";
+		cin>>num;
+	}
+	void putdata()
+	{
+		cout<<"\nName is:"<<name<<endl;
+		cout<<"\nDate of Birth is:"<<dob<<endl;
+		cout<<"\nTelephone number is:"<<num<<endl;
+	}
+	string getname()
+	{
+		return name;
+	}
 };
-void person::getdata()
-{
-	cout<<"Enter name: "<<endl;
-	cin>>name;
-	cout<<"Enter DOB: "<<endl;
-	cin>>dob;
-	cout<<"Enter Phone: "<<endl;
-	cin>>tele;
-}
 class item
 {
-public:
-	string iname;
+    string iname;
 	int cost;
 	int code;
 	int quan;
+public:
 	void getdata();
-	void showdata();
-
+	void putdata();
+	int getcost()
+	{
+	    return cost;
+	}
 };
 void item::getdata()
 {
-cout<<"Enter Item Name: "<<endl;
-cin>>iname;
-cout<<"Enter Item code: "<<endl;
-cin>>code;
-cout<<"Enter Item cost: "<<endl;
-cin>>cost;
-cout<<"Enter Item quantity: "<<endl;
-cin>>quan;
+    cout<<"Enter Item Name: "<<endl;
+    cin>>iname;
+    cout<<"Enter Item code: "<<endl;
+    cin>>code;
+    cout<<"Enter Item cost: "<<endl;
+    cin>>cost;
+    cout<<"Enter Item quantity: "<<endl;
+    cin>>quan;
 }
-void item::showdata()
+void item::putdata()
 {
 cout<<"Item Name: "<<iname<<endl;
 cout<<"Item Code: "<<code<<endl;
 cout<<"Item Cost: "<<cost<<endl;
 cout<<"Item Quantity: "<<quan<<endl;
 }
+bool comp_name(person p,person q)
+{
+    return(p.getname()<q.getname());
+}
+bool comp_cost(item p,item q)
+{
+    return(p.getcost()<q.getcost());
+}
 int main()
 {
-int n,m;
+    int n;
+    cout<<"Enter number of persons"<<endl;
+    cin>>n;
+    person p[100];//p[n];
+    string z[100];//z[n];
 
-cout<<"Enter number of people"<<endl;
-cin>>n;
+    for(int i=0;i<n;i++)
+    {
+        p[i].getdata();
+    }
 
-cout<<"Enter number of items"<<endl;
-cin>>m;
+    for(int i=0;i<n;i++)
+    {
+        z[i]=p[i].getname();
+    }
 
-person p[n];
-string z[n];
+    string a;
+    cout<<"Enter name to be searched"<<endl;
+    cin>>a;
 
-for(int i=0;i<n;i++)
-{
-p[i].getdata();
-}
+    string *ptr;
 
-for(int i=0;i<n;i++)
-{
-z[i]=p[i].name;
-}
+    ptr=find(z,z+n,a);
 
-string a;
+    if(ptr==z+n)
+        cout<<"Not found"<<endl;
+    else
+        cout<<"Found at "<<ptr-z<<endl;
 
-cout<<"Enter the name of person to be searched"<<endl;
-cin>>a;
+    cout<<"Sorting person by name"<<endl;
+    sort(p,p+n,comp_name);
+    
+    for(int i=0;i<n;i++)
+    {
+        p[i].putdata();
+    }
 
-string *ptr;
+    // ITEM
+    int m;
+    cout<<"Enter no of items"<<endl;
+    cin>>m;
+    item it[100];
+    int cost[100];
 
-ptr = find(z,z+n,a);
+    for(int i=0;i<m;i++)
+    {
+        it[i].getdata();
+    }
 
-if(ptr==z+n)
-{
-cout<<"Not found"<<endl;
-}
-else
-{
-cout<<"Element found at "<<ptr-z<<" location"<<endl;
-}
+    for(int i=0;i<m;i++)
+    {
+        cost[i]=it[i].getcost();
+    }
 
-//item
-item it[m];
-int temp[m];
+    int b;
+    cout<<"Enter cost of item you want to search"<<endl;
+    cin>>b;
 
-for(int i=0;i<m;i++)
-{
-it[i].getdata();
-}
+    int *ptr2;
 
-for(int i=0;i<m;i++)
-{
-temp[i]=it[i].cost;
-}
-
-sort(temp,temp+m);
+    ptr2=find(cost,cost+m,b);
+    if(ptr2==cost+m)
+        cout<<"Not found"<<endl;
+    else
+        cout<<"Found at "<<ptr2-cost<<endl;
 
 
-for(int i=0;i<m;i++)
-{
-	for(int j=0;j<m;j++)
-	{
-	if(temp[i]==it[j].cost)
-		{
-		it[j].showdata();
-		}	
-	}
-}
+    sort(it,it+m,comp_cost);
+    cout<<"Sorted by cost"<<endl;
+    for(int i=0;i<m;i++)
+    {
+        it[i].putdata();
+    }
+
 return 0;
 }
