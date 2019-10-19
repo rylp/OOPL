@@ -37,9 +37,7 @@ int main()
 		file.write((char*)& s, sizeof(s));
 	}
 	file.close();
-
-	file.seekg(0);
-
+	
 	file.open("rylp.txt", ios::in | ios::out);
 	{
 		cout << "---Reading from file---" << endl;
